@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://5f1dvj1uqaxk"]
+
+[ext_resource type="Script" path="res://Scenes/obstacle_spawner.gd" id="1_apyaf"]
+
+[node name="ObstacleSpawner" type="Node"]
+script = ExtResource("1_apyaf")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 1.2

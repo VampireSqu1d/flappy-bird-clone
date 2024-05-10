@@ -1,0 +1,124 @@
+[gd_scene load_steps=18 format=3 uid="uid://glgl1sk5coqw"]
+
+[ext_resource type="Texture2D" uid="uid://pgawqvd86bsg" path="res://assets/Sprites/Game Objects/Bat.png" id="1_mx3rc"]
+[ext_resource type="Script" path="res://Scenes/bat.gd" id="1_q11gd"]
+[ext_resource type="Texture2D" uid="uid://di0mt07p5mglv" path="res://assets/Animations/Spritesheets/Death.png" id="2_antg3"]
+[ext_resource type="Texture2D" uid="uid://d1i7wyxvyf4ep" path="res://assets/Animations/Spritesheets/Fly.png" id="3_glnyr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q56iu"]
+radius = 21.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2aay"]
+atlas = ExtResource("2_antg3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm4ti"]
+atlas = ExtResource("2_antg3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx78a"]
+atlas = ExtResource("2_antg3")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yfvj"]
+atlas = ExtResource("2_antg3")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btv8c"]
+atlas = ExtResource("2_antg3")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lobln"]
+atlas = ExtResource("2_antg3")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6uqm"]
+atlas = ExtResource("2_antg3")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muv2w"]
+atlas = ExtResource("3_glnyr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_187ej"]
+atlas = ExtResource("3_glnyr")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eimsj"]
+atlas = ExtResource("3_glnyr")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el4vt"]
+atlas = ExtResource("3_glnyr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r5v3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2aay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm4ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx78a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yfvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btv8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lobln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6uqm")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muv2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_187ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eimsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el4vt")
+}],
+"loop": false,
+"name": &"fly",
+"speed": 8.0
+}]
+
+[node name="Bat" type="CharacterBody2D"]
+script = ExtResource("1_q11gd")
+GRAVITY = 1200.0
+JUMP = 600.0
+
+[node name="animations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+visible = false
+scale = Vector2(3, 3)
+texture = ExtResource("1_mx3rc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_q56iu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_r5v3o")
+animation = &"death"

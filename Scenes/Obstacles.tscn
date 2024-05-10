@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://da3mmqbgqgul0"]
+
+[ext_resource type="Texture2D" uid="uid://be6xjj6st5ro8" path="res://assets/Sprites/Game Objects/Ostacolo_Up.png" id="1_d8sbe"]
+[ext_resource type="Script" path="res://Scenes/Obstacles.gd" id="1_jhv7j"]
+[ext_resource type="Texture2D" uid="uid://nboqmhoojfka" path="res://assets/Sprites/Game Objects/Obstacle_Down.png" id="2_slri3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myv0k"]
+size = Vector2(33.75, 157)
+
+[node name="Obstacles" type="Node2D"]
+script = ExtResource("1_jhv7j")
+
+[node name="TopObstacle" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopObstacle"]
+texture_filter = 1
+position = Vector2(184, 64)
+texture = ExtResource("1_d8sbe")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopObstacle"]
+position = Vector2(135, 0)
+polygon = PackedVector2Array(1, 0, 4, 29, 20, 50, 35, 43, 56, 215, 90, -133, -26, -136)
+
+[node name="BottomObstacle" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="BottomObstacle"]
+texture_filter = 1
+position = Vector2(184, 464)
+texture = ExtResource("2_slri3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BottomObstacle"]
+position = Vector2(140, 380)
+polygon = PackedVector2Array(-24, 242, -2, 117, 18, 95, 32, 102, 51, -67, 88, 314, -23, 313)
+
+[node name="ScoreArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(241, 269)
+shape = SubResource("RectangleShape2D_myv0k")
+
+[connection signal="body_entered" from="TopObstacle" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BottomObstacle" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

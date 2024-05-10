@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://bk1bmumbuhtmq"]
+
+[ext_resource type="Script" path="res://Scenes/main_scene.gd" id="1_6ya8x"]
+[ext_resource type="PackedScene" uid="uid://crkc23ea70dkp" path="res://Scenes/UI.tscn" id="1_7timf"]
+[ext_resource type="PackedScene" uid="uid://5f1dvj1uqaxk" path="res://Scenes/obstacle_spawner.tscn" id="2_meyar"]
+[ext_resource type="Texture2D" uid="uid://cou7cprdge7j7" path="res://assets/Sprites/Game Objects/Foreground.png" id="2_pcaji"]
+[ext_resource type="PackedScene" uid="uid://glgl1sk5coqw" path="res://Scenes/bat.tscn" id="2_rq1r5"]
+[ext_resource type="Texture2D" uid="uid://detxyygip3to5" path="res://assets/Sprites/Game Objects/Background.png" id="3_7wfxx"]
+[ext_resource type="PackedScene" uid="uid://81f6t2fpxqev" path="res://Scenes/ground.tscn" id="5_q4y8y"]
+[ext_resource type="StyleBox" uid="uid://cv01pc2a4ro4l" path="res://Scenes/label_styleBoxtres.tres" id="9_yt0jx"]
+[ext_resource type="AudioStream" uid="uid://bu4in078k5qsw" path="res://assets/Audio/Sound Effects/Click.wav" id="10_2d00e"]
+[ext_resource type="LabelSettings" uid="uid://c4kt30x3stmrn" path="res://Scenes/label_style.tres" id="10_pcrpx"]
+[ext_resource type="AudioStream" uid="uid://c3ar2vlljqs2g" path="res://assets/Audio/Music/Background Music.mp3" id="11_s6hiy"]
+
+[node name="MainScene" type="Node"]
+script = ExtResource("1_6ya8x")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(270, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("3_7wfxx")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(270, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("2_pcaji")
+centered = false
+
+[node name="Ground" parent="." instance=ExtResource("5_q4y8y")]
+unique_name_in_owner = true
+texture_filter = 1
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource("2_meyar")]
+unique_name_in_owner = true
+
+[node name="Bat" parent="." instance=ExtResource("2_rq1r5")]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+position = Vector2(32, 216)
+GRAVITY = 600.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(135, 239)
+
+[node name="UI" parent="." instance=ExtResource("1_7timf")]
+texture_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 30
+
+[node name="Score" type="Label" parent="UI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 28
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HighscoreLabel" type="Label" parent="UI/MarginContainer/CenterContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "Score: 0
+
+Highscore: 0 
+"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="UI/MarginContainer/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="StartLabel" type="Label" parent="UI/MarginContainer/CenterContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 22.0
+offset_right = 65.0
+offset_bottom = 74.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "PLAY"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+
+[node name="RestartLabel" type="Label" parent="UI/MarginContainer/CenterContainer/Panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 22.0
+offset_right = 65.0
+offset_bottom = 74.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "RESTART
+"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_2d00e")
+volume_db = -15.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_s6hiy")
+volume_db = -15.0
+autoplay = true
+
+[connection signal="gui_input" from="UI/MarginContainer/CenterContainer/Panel/StartLabel" to="." method="_on_start_label_gui_input"]
+[connection signal="gui_input" from="UI/MarginContainer/CenterContainer/Panel/RestartLabel" to="." method="_on_restart_label_gui_input"]

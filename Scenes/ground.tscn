@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://81f6t2fpxqev"]
+
+[ext_resource type="Script" path="res://Scenes/ground.gd" id="1_qax6o"]
+[ext_resource type="Texture2D" uid="uid://co3o7kitwyyrv" path="res://assets/Sprites/Game Objects/Terrain.png" id="1_rj25f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u24ao"]
+size = Vector2(287.25, 94.0595)
+
+[node name="Ground" type="Node2D"]
+position = Vector2(136, 280)
+scale = Vector2(1, 1.1)
+script = ExtResource("1_qax6o")
+
+[node name="Node2D3" type="Area2D" parent="."]
+scale = Vector2(1, 1.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D3"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(8, -24)
+scale = Vector2(1.06296, 1.1)
+texture = ExtResource("1_rj25f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D3"]
+visible = false
+position = Vector2(8.375, 176)
+scale = Vector2(1, 1.1)
+shape = SubResource("RectangleShape2D_u24ao")
+
+[node name="Node2D2" type="Area2D" parent="."]
+position = Vector2(286, 0)
+scale = Vector2(1, 1.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-8, -24)
+scale = Vector2(1.06296, 1.1)
+texture = ExtResource("1_rj25f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2"]
+visible = false
+position = Vector2(-8, 176)
+scale = Vector2(1, 1.1)
+shape = SubResource("RectangleShape2D_u24ao")
+
+[node name="Node2D" type="Area2D" parent="."]
+position = Vector2(573, 0)
+scale = Vector2(1, 1.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-24, -24)
+scale = Vector2(1.06296, 1.1)
+texture = ExtResource("1_rj25f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+visible = false
+position = Vector2(-24, 176)
+scale = Vector2(1, 1.1)
+shape = SubResource("RectangleShape2D_u24ao")
+
+[connection signal="body_entered" from="Node2D3" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Node2D2" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Node2D" to="." method="_on_body_entered"]
