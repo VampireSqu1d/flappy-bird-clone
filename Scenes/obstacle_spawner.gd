@@ -33,7 +33,7 @@ func spawn_obstacles():
 	obs.score_point.connect(on_point_entered)
 
 
-func _process(delta):
+func _process(_delta):
 	for obs in get_children().filter(func (child): return child is Obstacles):
 		if (obs as Obstacles).position.x < -300:
 			obs.queue_free()

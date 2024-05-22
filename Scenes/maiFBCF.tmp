@@ -1,0 +1,172 @@
+[gd_scene load_steps=15 format=3 uid="uid://bk1bmumbuhtmq"]
+
+[ext_resource type="Script" path="res://Scenes/main_scene.gd" id="1_6ya8x"]
+[ext_resource type="PackedScene" uid="uid://crkc23ea70dkp" path="res://Scenes/UI.tscn" id="1_7timf"]
+[ext_resource type="PackedScene" uid="uid://5f1dvj1uqaxk" path="res://Scenes/obstacle_spawner.tscn" id="2_meyar"]
+[ext_resource type="Texture2D" uid="uid://cou7cprdge7j7" path="res://assets/Sprites/Game Objects/Foreground.png" id="2_pcaji"]
+[ext_resource type="PackedScene" uid="uid://glgl1sk5coqw" path="res://Scenes/bat.tscn" id="2_rq1r5"]
+[ext_resource type="Texture2D" uid="uid://detxyygip3to5" path="res://assets/Sprites/Game Objects/Background.png" id="3_7wfxx"]
+[ext_resource type="PackedScene" uid="uid://81f6t2fpxqev" path="res://Scenes/ground.tscn" id="5_q4y8y"]
+[ext_resource type="StyleBox" uid="uid://cv01pc2a4ro4l" path="res://Scenes/label_styleBoxtres.tres" id="9_yt0jx"]
+[ext_resource type="AudioStream" uid="uid://bu4in078k5qsw" path="res://assets/Audio/Sound Effects/Click.wav" id="10_2d00e"]
+[ext_resource type="Texture2D" uid="uid://cpveqnhfbkxkn" path="res://assets/Sprites/UI Elements/muted.png" id="10_7w4vv"]
+[ext_resource type="LabelSettings" uid="uid://c4kt30x3stmrn" path="res://Scenes/label_style.tres" id="10_pcrpx"]
+[ext_resource type="Texture2D" uid="uid://5ungxyfugafl" path="res://assets/Sprites/UI Elements/not_muted.png" id="10_tayea"]
+[ext_resource type="AudioStream" uid="uid://c3ar2vlljqs2g" path="res://assets/Audio/Music/Background Music.mp3" id="11_s6hiy"]
+[ext_resource type="AudioStream" uid="uid://dpexb0lvs5h3f" path="res://assets/Audio/Sound Effects/impactMetal_heavy_000.ogg" id="12_bqn1i"]
+
+[node name="MainScene" type="Node"]
+script = ExtResource("1_6ya8x")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(270, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("3_7wfxx")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(270, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("2_pcaji")
+centered = false
+
+[node name="Ground" parent="." instance=ExtResource("5_q4y8y")]
+unique_name_in_owner = true
+texture_filter = 1
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource("2_meyar")]
+unique_name_in_owner = true
+
+[node name="Bat" parent="." instance=ExtResource("2_rq1r5")]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+position = Vector2(32, 216)
+GRAVITY = 800.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(135, 239)
+
+[node name="UI" parent="." instance=ExtResource("1_7timf")]
+texture_filter = 1
+
+[node name="Score" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = 30.0
+offset_right = 270.0
+offset_bottom = 69.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 28
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MuteButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 62.0
+offset_bottom = 86.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("10_tayea")
+icon_alignment = 1
+
+[node name="UnmuteButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 62.0
+offset_bottom = 86.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("10_7w4vv")
+icon_alignment = 1
+
+[node name="HighscoreLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+offset_left = 32.0
+offset_top = 144.0
+offset_right = 209.0
+offset_bottom = 277.0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "Score: 0
+
+Highscore: 0 
+"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 300.0
+offset_right = 65.0
+offset_bottom = 352.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "RESTART
+"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+
+[node name="StartLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 72.0
+offset_top = 300.0
+offset_right = 200.0
+offset_bottom = 352.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "PLAY"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_2d00e")
+volume_db = -15.0
+bus = &"SoundFX"
+
+[node name="MusicAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_s6hiy")
+volume_db = -8.0
+autoplay = true
+bus = &"Music"
+
+[node name="ScoreAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bqn1i")
+bus = &"SoundFX"
+
+[connection signal="pressed" from="UI/MuteButton" to="." method="_on_mute_button_pressed"]
+[connection signal="pressed" from="UI/UnmuteButton" to="." method="_on_unmute_button_pressed"]
+[connection signal="gui_input" from="UI/RestartLabel" to="." method="_on_restart_label_gui_input"]
+[connection signal="gui_input" from="UI/StartLabel" to="." method="_on_start_label_gui_input"]

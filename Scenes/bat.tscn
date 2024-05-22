@@ -137,8 +137,10 @@ frame_progress = 1.0
 unique_name_in_owner = true
 stream = ExtResource("5_5t806")
 volume_db = -20.0
+bus = &"SoundFX"
 
 [node name="DeathSoundPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_ixwan")
 volume_db = -20.0
+bus = &"SoundFX"

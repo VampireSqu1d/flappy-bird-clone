@@ -61,6 +61,24 @@ position = Vector2(-24, 176)
 scale = Vector2(1, 1.1)
 shape = SubResource("RectangleShape2D_u24ao")
 
+[node name="Node2D4" type="Area2D" parent="."]
+position = Vector2(-5, -531.818)
+scale = Vector2(1, 1.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D4"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(8, -24)
+scale = Vector2(1.06296, 1.1)
+texture = ExtResource("1_rj25f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D4"]
+visible = false
+position = Vector2(8.375, 176)
+scale = Vector2(1, 1.1)
+shape = SubResource("RectangleShape2D_u24ao")
+
 [connection signal="body_entered" from="Node2D3" to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Node2D2" to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Node2D" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Node2D4" to="." method="_on_body_entered"]

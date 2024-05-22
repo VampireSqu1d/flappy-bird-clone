@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://nboqmhoojfka" path="res://assets/Sprites/Game Objects/Obstacle_Down.png" id="2_slri3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myv0k"]
-size = Vector2(33.75, 157)
+size = Vector2(20.875, 157)
 
 [node name="Obstacles" type="Node2D"]
 script = ExtResource("1_jhv7j")
@@ -37,7 +37,7 @@ polygon = PackedVector2Array(-24, 242, -2, 117, 18, 95, 32, 102, 51, -67, 88, 31
 [node name="ScoreArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
-position = Vector2(241, 269)
+position = Vector2(209.563, 266)
 shape = SubResource("RectangleShape2D_myv0k")
 
 [connection signal="body_entered" from="TopObstacle" to="." method="_on_body_entered"]

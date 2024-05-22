@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bk1bmumbuhtmq"]
+[gd_scene load_steps=17 format=3 uid="uid://bk1bmumbuhtmq"]
 
 [ext_resource type="Script" path="res://Scenes/main_scene.gd" id="1_6ya8x"]
 [ext_resource type="PackedScene" uid="uid://crkc23ea70dkp" path="res://Scenes/UI.tscn" id="1_7timf"]
@@ -9,8 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://81f6t2fpxqev" path="res://Scenes/ground.tscn" id="5_q4y8y"]
 [ext_resource type="StyleBox" uid="uid://cv01pc2a4ro4l" path="res://Scenes/label_styleBoxtres.tres" id="9_yt0jx"]
 [ext_resource type="AudioStream" uid="uid://bu4in078k5qsw" path="res://assets/Audio/Sound Effects/Click.wav" id="10_2d00e"]
+[ext_resource type="Texture2D" uid="uid://cpveqnhfbkxkn" path="res://assets/Sprites/UI Elements/muted.png" id="10_7w4vv"]
 [ext_resource type="LabelSettings" uid="uid://c4kt30x3stmrn" path="res://Scenes/label_style.tres" id="10_pcrpx"]
+[ext_resource type="Texture2D" uid="uid://5ungxyfugafl" path="res://assets/Sprites/UI Elements/not_muted.png" id="10_tayea"]
 [ext_resource type="AudioStream" uid="uid://c3ar2vlljqs2g" path="res://assets/Audio/Music/Background Music.mp3" id="11_s6hiy"]
+[ext_resource type="Texture2D" uid="uid://djmeqriiibsdw" path="res://assets/Sprites/UI Elements/back_arrow.png" id="12_b582w"]
+[ext_resource type="AudioStream" uid="uid://dpexb0lvs5h3f" path="res://assets/Audio/Sound Effects/impactMetal_heavy_000.ogg" id="12_bqn1i"]
+[ext_resource type="Texture2D" uid="uid://ee8qrfpmk362" path="res://assets/Sprites/UI Elements/dots.png" id="12_h056h"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_6ya8x")
@@ -43,43 +48,78 @@ unique_name_in_owner = true
 visible = false
 texture_filter = 1
 position = Vector2(32, 216)
-GRAVITY = 600.0
+GRAVITY = 800.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(135, 239)
 
 [node name="UI" parent="." instance=ExtResource("1_7timf")]
 texture_filter = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 30
-
-[node name="Score" type="Label" parent="UI/MarginContainer"]
+[node name="Score" type="Label" parent="UI"]
 unique_name_in_owner = true
 layout_mode = 2
+offset_top = 30.0
+offset_right = 270.0
+offset_bottom = 69.0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+[node name="MainUINode" type="Control" parent="UI"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HighscoreLabel" type="Label" parent="UI/MarginContainer/CenterContainer"]
+[node name="MuteButton" type="Button" parent="UI/MainUINode"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 62.0
+offset_bottom = 86.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("10_tayea")
+icon_alignment = 1
+
+[node name="UnmuteButton" type="Button" parent="UI/MainUINode"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 62.0
+offset_bottom = 86.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("10_7w4vv")
+icon_alignment = 1
+
+[node name="HighscoreLabel" type="Label" parent="UI/MainUINode"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+offset_left = 32.0
+offset_top = 144.0
+offset_right = 209.0
+offset_bottom = 277.0
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("9_yt0jx")
 text = "Score: 0
@@ -90,38 +130,16 @@ label_settings = ExtResource("10_pcrpx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="UI/MarginContainer/CenterContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="StartLabel" type="Label" parent="UI/MarginContainer/CenterContainer/Panel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -63.0
-offset_top = 22.0
-offset_right = 65.0
-offset_bottom = 74.0
-grow_horizontal = 2
-mouse_filter = 0
-theme_override_styles/normal = ExtResource("9_yt0jx")
-text = "PLAY"
-label_settings = ExtResource("10_pcrpx")
-horizontal_alignment = 1
-
-[node name="RestartLabel" type="Label" parent="UI/MarginContainer/CenterContainer/Panel"]
+[node name="RestartLabel" type="Label" parent="UI/MainUINode"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = 5
+layout_mode = 2
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -63.0
-offset_top = 22.0
+offset_top = 300.0
 offset_right = 65.0
-offset_bottom = 74.0
+offset_bottom = 352.0
 grow_horizontal = 2
 mouse_filter = 0
 theme_override_styles/normal = ExtResource("9_yt0jx")
@@ -130,14 +148,91 @@ text = "RESTART
 label_settings = ExtResource("10_pcrpx")
 horizontal_alignment = 1
 
+[node name="StartLabel" type="Label" parent="UI/MainUINode"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 72.0
+offset_top = 300.0
+offset_right = 200.0
+offset_bottom = 352.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "PLAY"
+label_settings = ExtResource("10_pcrpx")
+horizontal_alignment = 1
+
+[node name="CreditsButton" type="Button" parent="UI/MainUINode"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 208.0
+offset_top = 40.0
+offset_right = 254.0
+offset_bottom = 86.0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("12_h056h")
+
+[node name="CreditsContainer" type="Control" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreditsLabel" type="Label" parent="UI/CreditsContainer"]
+layout_mode = 2
+offset_left = 51.0
+offset_top = 171.0
+offset_right = 219.0
+offset_bottom = 308.0
+size_flags_horizontal = 4
+theme_override_styles/normal = ExtResource("9_yt0jx")
+text = "Developed using the 
+Godot Game Engine
+
+Assets by
+PoorGameDev"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackArrowButton" type="Button" parent="UI/CreditsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 62.0
+offset_bottom = 86.0
+size_flags_vertical = 0
+theme_override_styles/normal = ExtResource("9_yt0jx")
+theme_override_styles/hover = ExtResource("9_yt0jx")
+theme_override_styles/pressed = ExtResource("9_yt0jx")
+icon = ExtResource("12_b582w")
+icon_alignment = 1
+
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_2d00e")
 volume_db = -15.0
+bus = &"SoundFX"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_s6hiy")
-volume_db = -15.0
+volume_db = -8.0
 autoplay = true
+bus = &"Music"
 
-[connection signal="gui_input" from="UI/MarginContainer/CenterContainer/Panel/StartLabel" to="." method="_on_start_label_gui_input"]
-[connection signal="gui_input" from="UI/MarginContainer/CenterContainer/Panel/RestartLabel" to="." method="_on_restart_label_gui_input"]
+[node name="ScoreAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bqn1i")
+bus = &"SoundFX"
+
+[connection signal="pressed" from="UI/MainUINode/MuteButton" to="." method="_on_mute_button_pressed"]
+[connection signal="pressed" from="UI/MainUINode/UnmuteButton" to="." method="_on_unmute_button_pressed"]
+[connection signal="gui_input" from="UI/MainUINode/RestartLabel" to="." method="_on_restart_label_gui_input"]
+[connection signal="gui_input" from="UI/MainUINode/StartLabel" to="." method="_on_start_label_gui_input"]
+[connection signal="pressed" from="UI/MainUINode/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="UI/CreditsContainer/BackArrowButton" to="." method="_on_back_arrow_button_pressed"]
